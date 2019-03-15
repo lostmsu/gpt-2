@@ -79,9 +79,7 @@ class Sampler(object):
             self.boundaries.append(self.boundaries[-1] + chunks[i].shape[0])
 
     def sample(self, length):
-        assert length < self.total_size // len(
-            self.chunks
-        ), "Dataset files are too small to sample {} tokens at a time".format(length)
+        assert length < self.total_size, "Dataset files are too small to sample {} tokens at a time".format(length)
         while True:
             index = random.randint(0, self.total_size - length - 1)
             i = binary_search(lambda j: self.boundaries[j] > index, 0,
